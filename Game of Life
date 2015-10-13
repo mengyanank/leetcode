@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+        int m,n;
+        m=board.size();
+        if(m==0)
+         return;
+        n=board[0].size();
+        int p[4]={0,1,0,1};
+        for(int i=0;i<m;i++)
+         for(int j=0;j<n;j++)
+             check(i,j,board,m,n,p);
+        for(int i=0;i<m;i++)
+         for(int j=0;j<n;j++)
+         {
+             if(board[i][j]==2)
+              board[i][j]=1;
+             else if(board[i][j]==3)
+              board[i][j]=0;
+         }
+    }
+     void check(int y,int x,vector<vector<int>>& nums,int m,int n,int *p)
+    {
+        int sy=y-1,sx=x-1,count=0;
+        for(int i=sy;i<sy+3;i++)
+         for(int j=sx;j<sx+3;j++)
+         {
+             if(i<0||i>=m||j<0||j>=n||(i==y&&j==x))
+              continue;
+             if(p[nums[i][j]])
+              count++;
+         }
+        if(nums[y][x]&&(count<2||count>3))
+             nums[y][x]=3;
+        if(!nums[y][x]&&count==3)
+             nums[y][x]=2;
+    }
+};
